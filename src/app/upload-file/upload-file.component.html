@@ -1,0 +1,39 @@
+<form [formGroup]="employeeForm"  class="form-horizontal">
+    <div class="card">
+        <div class="card-header">Cretae Employee</div>
+        <div class="card-body">
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input  class="form-control"   type="text" formControlName="fullName"  id="fullName">
+                          <span class="invalid-feedback">
+                          
+                          </span>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+             
+                <input  class="form-control"   type="text" formControlName="lastName"  id="lastName">
+                          <span class="invalid-feedback">
+                           
+                          </span>
+
+               </div>
+                    <div class="form-group">
+                        <div class="form-inline">
+                            <label class="control-label">File :</label>
+                            <div class="col-sm-5">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="file" (change)="onSelectFile($event)" multiple>
+                                </div>
+                            </div>
+                         </div>
+                    </div>
+        <div class="card-footer">
+          <div class="btn-toolbar">
+              <button type="submit" class="btn btn-primary" (click)="saveForm(employeeForm)">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</form>
+

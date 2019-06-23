@@ -1,0 +1,140 @@
+<form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+    <div class="card">
+        <div class="card-header">Cretae Employee</div>
+        <div class="card-body">
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+             
+                <input  class="form-control" [ngClass] ="{'is-invalid': formErrors.fullName}"  
+                      (blur)="logValidationErrors()" type="text" formControlName="fullName"  id="fullName">
+                       <!--<span *ngIf="formErrors.fullName !== null && formErrors.fullName !== ''">-->
+                          <span class="invalid-feedback">
+                              {{formErrors.fullName}}
+                          </span>
+                       <!--s</span>-->
+            </div>
+            <div class="form-group">
+                <div class="form-inline">
+                    <label class="control-label">Contact :</label>
+                    <div class="col-sm-1">
+                        <div class="form-check form-check-inline">
+                            <input  class="form-check-input"  type="radio" formControlName="contactPreference"  value="email">
+                            <label class="form-check-label">Email</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="form-check form-check-inline">
+                            <input  class="form-check-input" s type="radio" formControlName="contactPreference" value="phone">
+                            <label class="form-check-label">Phone</label>
+                        </div>
+                    </div>
+              </div>
+            </div>
+            <div formGroupName="emailGroup">
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <label for="email">Email address:</label>
+                    <input type="text" formControlName="email" class="form-control" [ngClass] ="{'is-invalid': formErrors.email}"  
+                    id="email" (blur)="logValidationErrors()" >
+                      <span class="invalid-feedback">
+                         {{formErrors.email}}
+                      </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <label for="confirmEmail">Confirm Email :</label>
+                    <input type="text" formControlName="confirmEmail" class="form-control" 
+                    [ngClass] ="{'is-invalid': formErrors.confirmEmail || formErrors.emailGroup}"  
+                    id="confirmEmail" (blur)="logValidationErrors()" >
+                      <span class="invalid-feedback">
+                         {{formErrors.confirmEmail}}
+                         {{formErrors.emailGroup}}
+                      </span>
+                </div>
+            </div>
+          </div>
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <label for="phone">Phone:</label>
+                    <input type="text" formControlName="phone" class="form-control" [ngClass] ="{'is-invalid': formErrors.phone}"  
+                    id="email" (blur)="logValidationErrors()" >
+                      <span class="invalid-feedback">
+                         {{formErrors.phone}}
+                      </span>
+                  </div>
+            </div>
+            <div class="card card-body bg-light">
+                <div class="form-group">
+                    <div class="form-inline">
+                        <div class="col-sm-5">
+                            <div class="form-check form-check-inline">
+                                <button class="form-check-input"  (click)="addSkillButtonClick()" >
+                                  Add Skill
+                                  </button>
+                            </div>
+                        </div>
+                     </div>
+                </div>
+            <div formArrayName="skills" *ngFor="let skill of employeeForm.get('skills').controls;let i=index">
+                <div [formGroupName]="i">
+                    <div class="form-inline">
+                        <label class="control-label" [attr.for]="'skillName'+i">Skills :</label>
+                        <div class="col-sm-3">
+                            <input type="text" placeholder="Name" formControlName="skillName" class="form-control" 
+                            (blur)="logValidationErrors()" [ngClass] ="{'is-invalid': formErrors.skillName}" [id]="'skillName'+i">
+                             <span class="invalid-feedback">
+                                {{formErrors.skillName}}
+                             </span>
+                        </div>
+                        <label class="control-label" [attr.for]="'experienceInYears'+i">In Years :</label>
+                        <div class="col-sm-3">
+                            <input type="text" placeholder="Experience In Years" formControlName="experienceInYears" class="form-control" 
+                            (blur)="logValidationErrors()" [ngClass] ="{'is-invalid': formErrors.experienceInYears}" [id]="'experienceInYears'+i">
+                             <span class="invalid-feedback">
+                                {{formErrors.experienceInYears}}
+                             </span>
+                        </div>
+                      </div><br />
+                    <div class="form-group">
+                        <div class="form-inline">
+                            <label class="control-label">Proficiency :</label>
+                            <div class="col-sm-2">
+                                <div class="form-check form-check-inline">
+                                    <input (blur)="logValidationErrors()" class="form-check-input" type="radio" formControlName="proficiency" id="proficiency" value="beginner">
+                                    <label class="form-check-label">Beginner</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-check form-check-inline">
+                                    <input (blur)="logValidationErrors()" class="form-check-input" type="radio" formControlName="proficiency" id="proficiency" value="intermediate">
+                                    <label class="form-check-label">Intermediate</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-check form-check-inline">
+                                    <input (blur)="logValidationErrors()" class="form-check-input" type="radio" formControlName="proficiency" id="proficiency" value="advanced">
+                                    <label class="form-check-label">Advanced</label>
+                                </div>
+                                <span class="invalid-feedback">
+                                    {{formErrors.proficiency}}
+                                 </span>
+                            </div>
+                      </div>
+                    </div>
+
+            
+                </div>
+            </div>
+            </div>
+        </div> 
+        <div class="card-footer">
+          <div class="btn-toolbar">
+              <button type="submit" class="btn btn-primary">Save</button>
+              <button type="button" (click)="onLoadDataClick()" class="btn btn-primary">Load Data</button>
+          </div>
+            
+        </div>
+      </div>
+</form>
+
