@@ -69,7 +69,7 @@
                     <div class="form-inline">
                         <div class="col-sm-5">
                             <div class="form-check form-check-inline">
-                                <button class="form-check-input"  (click)="addSkillButtonClick()" >
+                                <button class="form-check-input" [disabled]="employeeForm.get('skills').invalid"  (click)="addSkillButtonClick()" >
                                   Add Skill
                                   </button>
                             </div>
@@ -77,23 +77,28 @@
                      </div>
                 </div>
             <div formArrayName="skills" *ngFor="let skill of employeeForm.get('skills').controls;let i=index">
+              <hr *ngIf="i>0">
                 <div [formGroupName]="i">
                     <div class="form-inline">
                         <label class="control-label" [attr.for]="'skillName'+i">Skills :</label>
                         <div class="col-sm-3">
                             <input type="text" placeholder="Name" formControlName="skillName" class="form-control" 
-                            (blur)="logValidationErrors()" [ngClass] ="{'is-invalid': formErrors.skillName}" [id]="'skillName'+i">
-                             <span class="invalid-feedback">
-                                {{formErrors.skillName}}
+                             [ngClass] ="{'is-invalid': skill.controls.skillName.invalid
+                                          && skill.controls.skillName.touched}" [id]="'skillName'+i">
+                             <span class="invalid-feedback" *ngIf ="{'is-invalid': skill.get('skillName').errors?.required
+                             && skill.get('skillName').touched}">
+                             skillName is requiredddd
                              </span>
                         </div>
                         <label class="control-label" [attr.for]="'experienceInYears'+i">In Years :</label>
                         <div class="col-sm-3">
                             <input type="text" placeholder="Experience In Years" formControlName="experienceInYears" class="form-control" 
-                            (blur)="logValidationErrors()" [ngClass] ="{'is-invalid': formErrors.experienceInYears}" [id]="'experienceInYears'+i">
-                             <span class="invalid-feedback">
-                                {{formErrors.experienceInYears}}
-                             </span>
+                            [ngClass] ="{'is-invalid': skill.controls.experienceInYears.invalid
+                            && skill.controls.experienceInYears.touched}"  [id]="'experienceInYears'+i">
+                            <span class="invalid-feedback" *ngIf ="{'is-invalid': skill.get('experienceInYears').errors?.required
+                            && skill.get('experienceInYears').touched}">
+                            experienceInYears is requiredddd
+                            </span>
                         </div>
                       </div><br />
                     <div class="form-group">
@@ -101,24 +106,25 @@
                             <label class="control-label">Proficiency :</label>
                             <div class="col-sm-2">
                                 <div class="form-check form-check-inline">
-                                    <input (blur)="logValidationErrors()" class="form-check-input" type="radio" formControlName="proficiency" id="proficiency" value="beginner">
+                                    <input  class="form-check-input" type="radio" formControlName="proficiency" id="proficiency" value="beginner">
                                     <label class="form-check-label">Beginner</label>
                                 </div>
                             </div>
                             <div class="col-sm-2">
                                 <div class="form-check form-check-inline">
-                                    <input (blur)="logValidationErrors()" class="form-check-input" type="radio" formControlName="proficiency" id="proficiency" value="intermediate">
+                                    <input  class="form-check-input" type="radio" formControlName="proficiency" id="proficiency" value="intermediate">
                                     <label class="form-check-label">Intermediate</label>
                                 </div>
                             </div>
                             <div class="col-sm-2">
                                 <div class="form-check form-check-inline">
-                                    <input (blur)="logValidationErrors()" class="form-check-input" type="radio" formControlName="proficiency" id="proficiency" value="advanced">
+                                    <input class="form-check-input" type="radio" formControlName="proficiency" id="proficiency" value="advanced">
                                     <label class="form-check-label">Advanced</label>
                                 </div>
-                                <span class="invalid-feedback">
-                                    {{formErrors.proficiency}}
-                                 </span>
+                                <span class="invalid-feedback" *ngIf ="{'is-invalid': skill.get('proficiency').errors?.required
+                                && skill.get('proficiency').touched}">
+                                proficiency is requiredddd
+                                </span>
                             </div>
                       </div>
                     </div>

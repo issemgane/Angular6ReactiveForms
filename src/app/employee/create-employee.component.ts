@@ -14,14 +14,7 @@ export class CreateEmployeeComponent implements OnInit {
   fullNameLength = 0;
 
   formErrors = {
-    'fullName': '',
-    'email': '',
-    'confirmEmail': '',
-    'emailGroup': '',
-    'phone': '',
-    'skillName': '',
-    'experienceInYears': '',
-    'proficiency': ''
+
   };
 
   // This object contains all the validation messages for this form
@@ -144,13 +137,7 @@ export class CreateEmployeeComponent implements OnInit {
         this.logValidationErrors(abstractControl);
       }
 
-      if (abstractControl instanceof FormArray) {
-        for (const control of abstractControl.controls) {
-          if (control instanceof FormGroup) {
-            this.logValidationErrors(control);
-          }
-        }
-      }
+
 
     });
   }
@@ -200,6 +187,7 @@ export class CreateEmployeeComponent implements OnInit {
 
    onSubmit():void{
     console.log(this.employeeForm);
+    console.log(this.employeeForm.value);
   }
 
 addSkillFormGroup() : FormGroup{

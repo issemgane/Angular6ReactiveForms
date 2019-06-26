@@ -3,12 +3,14 @@ import {Routes,RouterModule} from '@angular/router';
 import { CreateEmployeeComponent } from './employee/create-employee.component';
 import { ListEmployeeComponent } from './employee/list-employee.component';
 import { UploadFileComponent } from './upload-file/upload-file.component';
+import { DynamicComponent } from './dynamic/dynamic.component';
 
 
 export const appRoutes : Routes = [
    { path: 'create', component: CreateEmployeeComponent },
    { path: 'list', component: ListEmployeeComponent},
    { path: 'file', component: UploadFileComponent},
+   { path: 'table', component: DynamicComponent},
    { path: '', redirectTo: '/list',pathMatch: 'full'}
  ];
 

@@ -8,13 +8,15 @@ import { CreateEmployeeComponent } from './employee/create-employee.component';
 import { ListEmployeeComponent } from './employee/list-employee.component';
 import { AppRoutingModule } from './app-routing.module';
 import { UploadFileComponent } from './upload-file/upload-file.component';
+import { DynamicComponent } from './dynamic/dynamic.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CreateEmployeeComponent,
     ListEmployeeComponent,
-    UploadFileComponent
+    UploadFileComponent,
+    DynamicComponent
   ],
   imports: [
     BrowserModule,

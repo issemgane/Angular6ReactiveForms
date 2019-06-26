@@ -1,0 +1,57 @@
+<form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" class="form-horizontal">
+  <div class="card">
+      <div class="card-header">Cretae Employee</div>
+      <div class="card-body">
+          <div class="card card-body bg-light">
+                <table class="table table-bordered" formArrayName="skills" >
+                    <thead>
+                        <tr>
+                          <th scope="col">Type</th>
+                          <th scope="col">Skill Name</th>
+                          <th scope="col">Experience In Years</th>
+                          <th scope="col">Amount</th>
+                          <th scope="col">DEvise</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let skill of employeeForm.get('skills').controls;let i=index" [formGroupName]="i" >
+                              <td>
+                                  <select class="form-control" formControlName="type" [id]="'type'+i">
+                                      <option  [value]="type" *ngFor="let type of types">{{type}}</option>
+                                    </select>
+                              </td>
+                              <td><input type='text' class="form-control" formControlName="skillName" [id]="'skillName'+i"></td>
+                              <td><input type='text' class="form-control" formControlName="experienceInYears" [id]="'experienceInYears'+i"></td>
+                              <td><input type='text' class="form-control" formControlName="amount" [id]="'amount'+i"></td>
+                              <td>
+                                  <select class="form-control" formControlName="devise" [id]="'devise'+i">
+                                      <option  [value]="devise" *ngFor="let devise of devises">{{devise}}</option>
+                                    </select>
+                              </td>
+
+                          </tr>
+                      </tbody>
+                </table>
+                <div class="form-group">
+                    <div class="form-inline">
+                        <div class="col-sm-5">
+                            <div class="form-check form-check-inline">
+                                <button  class="form-check-input btn btn-primary" [disabled]="employeeForm.get('skills').invalid"  (click)="addSkillButtonClick()" >
+                                  Add Skill
+                                  </button>
+                            </div>
+                        </div>
+                     </div>
+                </div>
+          </div>
+      </div> 
+      <div class="card-footer">
+        <div class="btn-toolbar">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="button" (click)="onLoadDataClick()" class="btn btn-primary">Load Data</button>
+        </div>
+          
+      </div>
+    </div>
+</form>
+
