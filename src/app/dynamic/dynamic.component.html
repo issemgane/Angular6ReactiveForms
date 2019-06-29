@@ -28,6 +28,11 @@
                                       <option  [value]="devise" *ngFor="let devise of devises">{{devise}}</option>
                                     </select>
                               </td>
+                              <td>
+                                <button class="btn btn-danger btn-sm" (click)="removeSkills(ngIf)" *ngIf="employeeForm.get('skills').length > 1">
+                                    <span class="glyphicon glyphicon-remove">X</span>
+                                </button>
+                              </td>
 
                           </tr>
                       </tbody>

@@ -57,6 +57,9 @@ export class DynamicComponent implements OnInit {
       console.log(response); 
      });
     // console.log(JSON.stringify(this.demande));
+  }
 
+  removeSkills(skillIndex:number){
+    (<FormArray>this.employeeForm.get('skills')).removeAt(skillIndex);
   }
 }
