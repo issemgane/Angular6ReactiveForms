@@ -26,7 +26,7 @@ static matchEmails(group: AbstractControl): { [key: string]: any } | null {
     const emailControl = group.get('email');
     const confirmEmailControl = group.get('confirmEmail');
   
-    if (emailControl.value === confirmEmailControl.value || confirmEmailControl.pristine) {
+    if (emailControl.value === confirmEmailControl.value || confirmEmailControl.pristine && confirmEmailControl.value !== '') {
       return null;
     } else {
       return { 'emailMismatch': true };

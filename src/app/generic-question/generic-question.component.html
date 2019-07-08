@@ -1,0 +1,18 @@
+ <form [formGroup]="genericQuestionsForm">
+   <div><!--formGroupName="questions"-->
+      <div class="form-group row" *ngFor="let question of activeQuestions">
+          <label for="inputEmail3" class="col-sm-2 col-form-label">{{question.libelle}}</label>
+         <div class="col-sm-7">
+           
+            <input (blur)="logValidationErrors()" *ngIf="question.type=='input'" type="text" 
+            [formControlName]="'response_'+question.id" class="form-control"  >
+
+            <textarea (blur)="logValidationErrors()" *ngIf="question.type=='textarea'" 
+            [formControlName]="'response_'+question.id" class="form-control"  rows="3"></textarea>
+          </div>
+        </div>
+       <!-- <button (click)="showForm()">ShowForm</button>-->
+   </div>
+   
+    
+</form>

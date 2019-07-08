@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute} from '@angular/router';
 import { FormGroup , FormControl ,FormBuilder ,Validators, AbstractControl, FormArray } from '@angular/forms';
 import { CustomValidator } from '../shared/custom.validators';
+import { EmployeeService } from './employee.service';
+import { IEmployee } from './IEmployee';
+import { ISkill } from './ISkill';
+import { Router} from '@angular/router';
 
 
 @Component({
@@ -12,6 +17,7 @@ export class CreateEmployeeComponent implements OnInit {
   
   employeeForm : FormGroup;
   fullNameLength = 0;
+  employee: IEmployee
 
   formErrors = {
 
@@ -48,7 +54,8 @@ export class CreateEmployeeComponent implements OnInit {
     },
   };
 
-  constructor(private fb :FormBuilder ) { }
+  constructor(private fb :FormBuilder ,private _activatedRoute:ActivatedRoute,
+    private _employeeService:EmployeeService,private _router:Router) { }
 
   ngOnInit() {
     this.employeeForm = this.fb.group({
@@ -73,6 +80,26 @@ export class CreateEmployeeComponent implements OnInit {
        this.logValidationErrors(this.employeeForm);
    });
 
+
+   this._activatedRoute.paramMap.subscribe(params=>{
+     const empId = +params.get('id');
+
+     if(empId){
+       this.getEmployee(empId); 
+     }else{
+       this.employee = {
+        id:null,
+        fullName: '',
+        email: '',
+        phone: null,
+        contactPreference:'' ,
+        skills: []
+       }
+     }
+   });
+
+   
+
    /*this.employeeForm.get('fullName').valueChanges.subscribe(
       (data:string)=>{
         this.fullNameLength = data.length;
@@ -89,6 +116,46 @@ export class CreateEmployeeComponent implements OnInit {
         proficiency:new FormControl()
        })
     });*/
+  }
+
+  getEmployee(empId:number){
+    this._employeeService.getEmployee(empId).subscribe(
+
+      (employee:IEmployee)=>{
+
+        this.editEmployee(employee);
+        this.employee=employee;
+      },
+      (err:any)=> console.log(err)
+    );
+  }
+
+  editEmployee(employee: IEmployee) {
+    this.employeeForm.patchValue({
+      fullName: employee.fullName,
+      contactPreference: employee.contactPreference,
+      emailGroup: {
+        email: employee.email,
+        confirmEmail: employee.email
+      },
+      phone: employee.phone
+    });
+
+    this.employeeForm.setControl('skills',this.setExistingSkills(employee.skills));
+  }
+
+  setExistingSkills(setSkills:ISkill[]):FormArray{
+    const formAraay = new FormArray([]);
+    setSkills.forEach(s=>{
+
+      formAraay.push(this.fb.group({
+        skillName:s.skillName,
+        experienceInYears:s.experienceInYears,
+        proficiency:s.proficiency
+      }))
+    });
+
+    return formAraay;
   }
 
   
@@ -112,8 +179,17 @@ export class CreateEmployeeComponent implements OnInit {
 
   }
 
+  removeSkills(skillIndex:number){
+   const skillFormArray=  (<FormArray>this.employeeForm.get('skills'));
+   
+   skillFormArray.removeAt(skillIndex);
+   skillFormArray.markAsDirty();
+   skillFormArray.markAsTouched();
+  }
+
 
   logValidationErrors(group: FormGroup = this.employeeForm): void {
+    
     Object.keys(group.controls).forEach((key: string) => {
       const abstractControl = group.get(key);
       this.formErrors[key] = '';
@@ -123,14 +199,16 @@ export class CreateEmployeeComponent implements OnInit {
       // validation message from validationMessages object and store
       // it in the formErrors object. The UI binds to the formErrors
       // object properties to display the validation errors.
-      if (abstractControl && !abstractControl.valid
-        && (abstractControl.touched || abstractControl.dirty)) {
+      if (abstractControl && !abstractControl.valid && (abstractControl.touched || abstractControl.dirty
+        || abstractControl.value !== '')) {
         const messages = this.validationMessages[key];
+
         for (const errorKey in abstractControl.errors) {
           if (errorKey) {
             this.formErrors[key] += messages[errorKey] + ' ';
           }
         }
+
       }
   
       if (abstractControl instanceof FormGroup) {
@@ -186,8 +264,30 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
    onSubmit():void{
-    console.log(this.employeeForm);
-    console.log(this.employeeForm.value);
+    /*console.log(this.employeeForm);
+    console.log(this.employeeForm.value);*/
+    this.mapFormValuesToEmployeeModel();
+    if(this.employee.id){
+      this._employeeService.updateEmployee(this.employee).subscribe(()=>{
+        this._router.navigate(['list']),
+        (error:any)=>console.log(error)
+      });
+    }else{
+      this._employeeService.addEmployee(this.employee).subscribe(()=>{
+        this._router.navigate(['list']),
+        (error:any)=>console.log(error)
+      });
+    }
+
+   
+  }
+
+  mapFormValuesToEmployeeModel() {
+    this.employee.fullName = this.employeeForm.value.fullName;
+    this.employee.contactPreference = this.employeeForm.value.contactPreference;
+    this.employee.email = this.employeeForm.value.emailGroup.email;
+    this.employee.phone = this.employeeForm.value.phone;
+    this.employee.skills = this.employeeForm.value.skills;
   }
 
 addSkillFormGroup() : FormGroup{

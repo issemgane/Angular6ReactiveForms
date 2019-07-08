@@ -29,7 +29,7 @@
                                     </select>
                               </td>
                               <td>
-                                <button class="btn btn-danger btn-sm" (click)="removeSkills(ngIf)" *ngIf="employeeForm.get('skills').length > 1">
+                                <button class="btn btn-danger btn-sm" (click)="removeSkills(i)" *ngIf="employeeForm.get('skills').length > 1">
                                     <span class="glyphicon glyphicon-remove">X</span>
                                 </button>
                               </td>
@@ -48,6 +48,7 @@
                         </div>
                      </div>
                 </div>
+                <app-generic-question [formParent]="employeeForm" [questionsId]="[1,2,3,4]" (onFormGroupChange)="onFormGroupChangeEvent($event)"></app-generic-question>
           </div>
       </div> 
       <div class="card-footer">
