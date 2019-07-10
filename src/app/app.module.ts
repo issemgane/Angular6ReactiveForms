@@ -12,7 +12,8 @@ import { DynamicComponent } from './dynamic/dynamic.component';
 import { GenericQuestionComponent } from './generic-question/generic-question.component';
 import { HomeComponent } from './home.component';
 import { PageNotFoundComponent } from './page-not-found.component';
-import { EmployeeModule } from './employee/employee.module';
+import { EmployeeModule } from './employee/employee-feature.module';
+
 
 @NgModule({
   declarations: [
@@ -25,9 +26,10 @@ import { EmployeeModule } from './employee/employee.module';
   ],
   imports: [
     BrowserModule,
+    EmployeeModule,
     AppRoutingModule,
-    HttpClientModule,
-    EmployeeModule
+    HttpClientModule
+    
   ],
   providers: [EmployeeService],
   bootstrap: [AppComponent]
