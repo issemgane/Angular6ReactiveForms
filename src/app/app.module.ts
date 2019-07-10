@@ -1,32 +1,33 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { EmployeeService } from './employee/employee.service';
 import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { CreateEmployeeComponent } from './employee/create-employee.component';
-import { ListEmployeeComponent } from './employee/list-employee.component';
-import { AppRoutingModule } from './app-routing.module';
+
+
 import { UploadFileComponent } from './upload-file/upload-file.component';
 import { DynamicComponent } from './dynamic/dynamic.component';
 import { GenericQuestionComponent } from './generic-question/generic-question.component';
+import { HomeComponent } from './home.component';
+import { PageNotFoundComponent } from './page-not-found.component';
+import { EmployeeModule } from './employee/employee.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CreateEmployeeComponent,
-    ListEmployeeComponent,
     UploadFileComponent,
     DynamicComponent,
-    GenericQuestionComponent
+    GenericQuestionComponent,
+    HomeComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
-    ReactiveFormsModule,
-    FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    EmployeeModule
   ],
   providers: [EmployeeService],
   bootstrap: [AppComponent]
