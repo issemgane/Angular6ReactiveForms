@@ -13,6 +13,7 @@ export const appRoutes : Routes = [
    { path: 'table', component: DynamicComponent},
    { path: 'generic', component: GenericQuestionComponent},
    { path: '', redirectTo: '/home',pathMatch: 'full'},
+   { path: 'employees', loadChildren: './employee/employee-feature.module#EmployeeModule'},
    { path: '**', component: PageNotFoundComponent }
  ];
  

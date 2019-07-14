@@ -12,7 +12,6 @@ import { DynamicComponent } from './dynamic/dynamic.component';
 import { GenericQuestionComponent } from './generic-question/generic-question.component';
 import { HomeComponent } from './home.component';
 import { PageNotFoundComponent } from './page-not-found.component';
-import { EmployeeModule } from './employee/employee-feature.module';
 import { SharedModule } from './shared/shared.module';
 
 
@@ -28,7 +27,6 @@ import { SharedModule } from './shared/shared.module';
   imports: [
     BrowserModule,
     SharedModule,
-    EmployeeModule,
     AppRoutingModule,
     HttpClientModule
     
