@@ -7,10 +7,14 @@ import { CreateEmployeeComponent } from './create-employee.component';
 
 
 export const appRoutes : Routes = [
-   { path: 'create', component: CreateEmployeeComponent },
-   { path: 'list', component: ListEmployeeComponent},
-   { path: 'edit/:id', component: CreateEmployeeComponent },
-   { path: '', redirectTo: '/home',pathMatch: 'full'}
+  {
+     path: 'employees', children:[
+      { path: '', component: ListEmployeeComponent},
+      { path: 'create', component: CreateEmployeeComponent },
+      { path: 'edit/:id', component: CreateEmployeeComponent }
+  ]  
+},
+
  ];
  
 

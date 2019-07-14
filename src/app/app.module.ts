@@ -13,6 +13,7 @@ import { GenericQuestionComponent } from './generic-question/generic-question.co
 import { HomeComponent } from './home.component';
 import { PageNotFoundComponent } from './page-not-found.component';
 import { EmployeeModule } from './employee/employee-feature.module';
+import { SharedModule } from './shared/shared.module';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { EmployeeModule } from './employee/employee-feature.module';
   ],
   imports: [
     BrowserModule,
+    SharedModule,
     EmployeeModule,
     AppRoutingModule,
     HttpClientModule

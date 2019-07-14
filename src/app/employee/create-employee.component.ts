@@ -269,12 +269,12 @@ export class CreateEmployeeComponent implements OnInit {
     this.mapFormValuesToEmployeeModel();
     if(this.employee.id){
       this._employeeService.updateEmployee(this.employee).subscribe(()=>{
-        this._router.navigate(['list']),
+        this._router.navigate(['/employees']),
         (error:any)=>console.log(error)
       });
     }else{
       this._employeeService.addEmployee(this.employee).subscribe(()=>{
-        this._router.navigate(['list']),
+        this._router.navigate(['/employees']),
         (error:any)=>console.log(error)
       });
     }
